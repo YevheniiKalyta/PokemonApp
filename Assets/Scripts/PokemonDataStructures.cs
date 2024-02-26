@@ -20,16 +20,7 @@ public class PokemonDetailedInfo
 {
     public int height;
     public int weight;
-    public PokemonStat[] stats;
     public PokemonSpriteURL sprites;
-}
-
-[System.Serializable]
-public class PokemonStat
-{
-    public int base_stat;
-    public int effort;
-    public NamedAPIResource stat;
 }
 
 [System.Serializable]
