@@ -11,9 +11,10 @@ public class PokedexInitializer : MonoBehaviour
 {
     public PokemonListResponse response { get; private set; }
 
-    public ListManager listManager;
-    StringBuilder stringBuilder;
-    int startIndex;
+    [SerializeField] private ListManager listManager;
+    private StringBuilder stringBuilder;
+    private int startIndex;
+
     public Action<int> OnCounter;
 
     async void Start()
@@ -28,8 +29,6 @@ public class PokedexInitializer : MonoBehaviour
         });
 
     }
-
-
 
     async Awaitable GetPokemonList(string url, Action OnDoneAction)
     {
@@ -47,7 +46,6 @@ public class PokedexInitializer : MonoBehaviour
             OnDoneAction?.Invoke();
         }
     }
-
 
     async Awaitable OnGetResponse()
     {
@@ -92,8 +90,6 @@ public class PokedexInitializer : MonoBehaviour
             OnCounter(counter);
         }
     }
-
-
 
     async Awaitable GetDetailedInfo(Pokemon pokemon, string url)
     {
