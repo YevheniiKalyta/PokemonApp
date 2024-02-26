@@ -10,11 +10,14 @@ using System;
 public class PokemonCard : MonoBehaviour
 {
     public RectTransform rectTransform;
-    public Image pokemonImage;
-    public TextMeshProUGUI pokemonIndexText;
-    public TextMeshProUGUI pokemonName;
-    public Button button;
-    Pokemon pokemon;
+
+    [SerializeField] private Image pokemonImage;
+    [SerializeField] private TextMeshProUGUI pokemonIndexText;
+    [SerializeField] private TextMeshProUGUI pokemonName;
+    [SerializeField] private Button button;
+
+    private Pokemon pokemon;
+
     public static Action<Pokemon> OnPokemonClicked;
 
     private void Start()

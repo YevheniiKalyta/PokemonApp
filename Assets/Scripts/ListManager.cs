@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class ListManager : MonoBehaviour
 {
 
-    public RectTransform Container;
-    public Mask Mask;
-    public PokemonCard Prefab;
-    public int Num = 1;
-    public int numColumns = 2;
-    public Vector2 Spacing;
+    [SerializeField] private RectTransform Container;
+    [SerializeField] private Mask Mask;
+    [SerializeField] private PokemonCard Prefab;
+    [SerializeField] private int Num = 1;
+    [SerializeField] private int numColumns = 2;
+    [SerializeField] private Vector2 Spacing;
 
     private RectTransform maskRT;
     private int numVisible;

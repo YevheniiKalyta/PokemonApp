@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class InfoCanvas : MonoBehaviour
 {
-    private int currentIndex;
     [SerializeField] private CanvasGroup infoPanelCG;
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private Image pokemonImage;
@@ -16,7 +15,8 @@ public class InfoCanvas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI pokemonIndex;
     [SerializeField] private TextMeshProUGUI pokemonHeight;
     [SerializeField] private TextMeshProUGUI pokemonWeight;
-    bool isVisible;
+    private int currentIndex;
+    private bool isVisible;
 
     public void OnWebsiteClick()
     {

@@ -9,12 +9,16 @@ using DG.Tweening;
 
 public class PokedexInitializer : MonoBehaviour
 {
-    public PokemonListResponse response { get; private set; }
 
     [SerializeField] private ListManager listManager;
+
+    private int pokemonToDLAmount = 1000;
     private StringBuilder stringBuilder;
     private int startIndex;
+    int dlCounter = 0;
 
+
+    public PokemonListResponse response { get; private set; }
     public Action<int> OnCounter;
 
     async void Start()
@@ -22,11 +26,11 @@ public class PokedexInitializer : MonoBehaviour
         stringBuilder = new StringBuilder(Consts.pokemonListURL);
         startIndex = Consts.pokemonListURL.Length;
 
-        await GetPokemonList(Consts.pokemonListURL + "?limit=1000", async () =>
-        {
-            listManager.InitializeList(response);
-            await OnGetResponse();
-        });
+        await GetPokemonList(Consts.pokemonListURL + "?limit=" + pokemonToDLAmount, async () =>
+         {
+             listManager.InitializeList(response);
+             await OnGetResponse();
+         });
 
     }
 
@@ -51,9 +55,6 @@ public class PokedexInitializer : MonoBehaviour
     {
         for (int i = 0; i < response.results.Length; i++)
         {
-
-            //if (destroyCancellationToken.IsCancellationRequested) return;
-
             response.results[i].pokemonIndex = i + 1;
 
             StringBuilder tmpString = new StringBuilder(response.results[i].url);
@@ -68,7 +69,7 @@ public class PokedexInitializer : MonoBehaviour
     }
 
 
-    int counter = 0;
+
     async Awaitable GetPokemonSprite(Pokemon pokemon, string url)
     {
         using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
@@ -86,8 +87,8 @@ public class PokedexInitializer : MonoBehaviour
             Texture2D texture = DownloadHandlerTexture.GetContent(www);
             texture.filterMode = FilterMode.Point;
             pokemon.pokemonImage = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            counter++;
-            OnCounter(counter);
+            dlCounter++;
+            OnCounter(dlCounter);
         }
     }
 
