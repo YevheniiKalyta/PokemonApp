@@ -1,11 +1,7 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.Networking;
-using System.Threading.Tasks;
 using System;
-using UnityEngine.UI;
 using System.Text;
-using DG.Tweening;
 
 public class PokedexInitializer : MonoBehaviour
 {
