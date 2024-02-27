@@ -22,7 +22,6 @@ public class ListManager : MonoBehaviour
     private float prefabWidth;
 
 
-    private Dictionary<int, int[]> itemDict = new Dictionary<int, int[]>();
     private List<RectTransform> listItemRect = new List<RectTransform>();
     private List<PokemonCard> pokemonCards = new List<PokemonCard>();
     private int numItems = 0;
@@ -61,7 +60,7 @@ public class ListManager : MonoBehaviour
 
         numVisible = Mathf.CeilToInt(maskRT.rect.size.y / prefabHeight) * numColumns;
 
-        startPos = Container.anchoredPosition3D - (Vector3.down * yContainerHalfSize) - (Vector3.right * xContainerHalfSize) + (Vector3.down * (prefabScale.y * 0.5f) + (Vector3.right * (widthInPixels / numColumns * 0.5f)));
+        startPos = Container.anchoredPosition3D - (Vector3.down * (yContainerHalfSize - (prefabScale.y * 0.5f))) - (Vector3.right * (xContainerHalfSize - (widthInPixels / numColumns * 0.5f)));
         numItems = Mathf.Min(Num, numVisible + numBuffer);
         int numRows = Mathf.CeilToInt(numItems / numColumns);
         for (int i = 0; i < numRows; i++)
@@ -73,7 +72,6 @@ public class ListManager : MonoBehaviour
                 t.sizeDelta = new Vector2(widthInPixels / numColumns, Prefab.rectTransform.sizeDelta.y);
                 t.anchoredPosition3D = startPos + (Vector3.down * i * prefabHeight) + (Vector3.right * j * prefabWidth);
                 listItemRect.Add(t);
-                itemDict.Add(t.GetInstanceID(), new int[] { i, i });
                 obj.gameObject.SetActive(true);
                 pokemonCards.Add(obj);
                 obj.UpdateContent(response.results[i * numColumns + j]);
@@ -116,8 +114,6 @@ public class ListManager : MonoBehaviour
 
     private void MoveItemByIndex(RectTransform item, int index)
     {
-        int id = item.GetInstanceID();
-        itemDict[id][0] = index;
         int xIndex = Mathf.CeilToInt(index / numColumns);
         int yIndex = index % numColumns;
         item.anchoredPosition3D = startPos + (Vector3.down * xIndex * prefabHeight) + (Vector3.right * yIndex * prefabWidth);
